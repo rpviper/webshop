@@ -1,1 +1,9 @@
-<p>cart works!</p>
+<div *ngFor="let cartProduct of cartProducts">
+ <div> {{cartProduct.product.name}} </div>
+ <div> {{cartProduct.product.price}} € </div>
+ <img class="button" (click)="decreaseQuantity(cartProduct)" src="assets/minus.png">
+ <div> {{cartProduct.quantity}} tk </div>
+ <img class="button" (click)="increaseQuantity(cartProduct)" src="assets/add.png">
+ <div> {{cartProduct.product.price * cartProduct.quantity}} € </div>
+ <img class="button"  (click)="removeProduct(cartProduct)" src="assets/remove.png">
+</div>
