@@ -1,9 +1,15 @@
-<div *ngFor="let cartProduct of cartProducts">
- <div> {{cartProduct.product.name}} </div>
- <div> {{cartProduct.product.price}} € </div>
+<button *ngIf="cartProducts.length >0" (click)="emptyCart()">Empty cart</button><br><br>
+
+<div  *ngFor="let cartProduct of cartProducts">
+ <div>Product: {{cartProduct.product.name}} </div>
+ <div>Price: {{cartProduct.product.price}} € </div>
  <img class="button" (click)="decreaseQuantity(cartProduct)" src="assets/minus.png">
- <div> {{cartProduct.quantity}} tk </div>
+ <div>Quantity: {{cartProduct.quantity}} pc </div>
  <img class="button" (click)="increaseQuantity(cartProduct)" src="assets/add.png">
- <div> {{cartProduct.product.price * cartProduct.quantity}} € </div>
+ <div>Total Price: {{cartProduct.product.price * cartProduct.quantity}} € </div>
  <img class="button"  (click)="removeProduct(cartProduct)" src="assets/remove.png">
 </div>
+
+<h3><div *ngIf="cartProducts.length >0"> Total to pay: {{totalSum}} €</div></h3> 
+
+<button *ngIf="cartProducts.length >0" (click)="toPay()">Payment</button>

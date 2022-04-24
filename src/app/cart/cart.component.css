@@ -2,5 +2,13 @@
  height: 20px;
  width: 20px;
  cursor: pointer;
- margin: 5px;
+ margin-left: 30px;
+}
+
+div {
+margin-left: 20px;
+}
+
+button {
+    margin-left: 20px;
 }
