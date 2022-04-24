@@ -6,7 +6,7 @@
  <img class="button" (click)="decreaseQuantity(cartProduct)" src="assets/minus.png">
  <div>Quantity: {{cartProduct.quantity}} pc </div>
  <img class="button" (click)="increaseQuantity(cartProduct)" src="assets/add.png">
- <div>Total Price: {{cartProduct.product.price * cartProduct.quantity}} € </div>
+ <div>Total Price: {{(cartProduct.product.price * cartProduct.quantity).toFixed(2)}} € </div> <!-- siin kah fixis selle probleemi ära komakohaga -->
  <img class="button"  (click)="removeProduct(cartProduct)" src="assets/remove.png">
 </div>
 
