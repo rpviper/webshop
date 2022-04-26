@@ -1,12 +1,13 @@
 <button *ngIf="cartProducts.length >0" (click)="emptyCart()">Empty cart</button><br><br>
 
-<div  *ngFor="let cartProduct of cartProducts">
- <div>Product: {{cartProduct.product.name}} </div>
- <div>Price: {{cartProduct.product.price}} € </div>
+<div class="cart-item"  *ngFor="let cartProduct of cartProducts">
+ <img class="cart-item-pic" src="{{cartProduct.product.imgSrc}} " alt="">
+ <div class="cart-item-name" >Product: {{cartProduct.product.name}} </div>
+ <div>Price: {{cartProduct.product.price.toLocaleString("uk", {minimumFractionDigits: 2, maximumFractionDigits: 2}).replace(",",".") }} € </div>
  <img class="button" (click)="decreaseQuantity(cartProduct)" src="assets/minus.png">
  <div>Quantity: {{cartProduct.quantity}} pc </div>
  <img class="button" (click)="increaseQuantity(cartProduct)" src="assets/add.png">
- <div>Total Price: {{(cartProduct.product.price * cartProduct.quantity).toFixed(2)}} € </div> <!-- siin kah fixis selle probleemi ära komakohaga -->
+ <div>Total Price: {{(cartProduct.product.price * cartProduct.quantity).toLocaleString("uk", {minimumFractionDigits: 2, maximumFractionDigits: 2}).replace(",",".")}} € </div> <!-- pani vahe pärast tuhandet plus koma kohade ümmardus -->
  <img class="button"  (click)="removeProduct(cartProduct)" src="assets/remove.png">
 </div>
 

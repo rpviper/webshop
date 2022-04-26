@@ -1,1 +1,7 @@
-<p>view-product works!</p>
+<div *ngFor="let product of products">
+ <img src="{{product.imgSrc}}" alt="">
+ <div>{{product.name}}</div>
+ <div>{{product.price}}</div>
+ <button routerLink="/admin/edit/{{product.id}}">Muuda toodet </button>
+</div>
+
