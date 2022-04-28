@@ -1,1 +1,15 @@
-<p>edit-product works!</p>
+<button routerLink="/admin/view">Tagasi</button>
+
+<div *ngIf="!product">Laeb tooteid...</div>
+
+<form *ngIf="product" (ngSubmit)="changeProduct()" [formGroup] = "changingForm">
+ <label> Nimi:  </label>
+ <input formControlName="name" type="text">
+ <label> Hind:  </label>
+ <input formControlName="price" type="number">
+ <label>ImgSrc: </label>
+ <input formControlName="imgSrc" type="text">
+ <label> Aktiivne:  </label>
+ <input formControlName="active" type="checkbox">
+ <button>Muuda</button>
+</form>

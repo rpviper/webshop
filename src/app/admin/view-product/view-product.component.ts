@@ -18,10 +18,16 @@ export class ViewProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.http.get<any>(this.url).subscribe(response => {   // here it is url  // subscribe is making things later than codes that come below
-      
-      for (const key in response) {
+           for (const key in response) {
         this.products.push(response[key]);
       }
     });  
-   }  
+  }
+
+deleteProduct(product: any) {
+  const queueNumber = this.products.indexOf(product);
+  this.products.splice(queueNumber, 1);
+  this.http.put(this.url, this.products).subscribe();
+
+    }   
   }

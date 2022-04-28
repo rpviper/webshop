@@ -1,3 +1,4 @@
+import { HttpClient} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddProductComponent implements OnInit {
 
-  constructor() { }
+  url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";
+
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
+
+addProduct(form: any) {
+  if (form.valid) {
+    this.http.post(this.url, form.value).subscribe();
+  }
+}
 
 }

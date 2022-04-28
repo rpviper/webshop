@@ -1,1 +1,13 @@
-<p>add-product works!</p>
+<button routerLink="/admin">Tagasi</button>
+
+<form (ngSubmit)="addProduct(addingForm)" #addingForm="ngForm"> 
+ <label>Nimetus</label> <br>                               
+ <input ngModel name="name" type="text" required> <br>   
+ <label>Hind</label> <br>
+ <input ngModel name="price" type="number" required> <br>   
+ <label>Pilt</label> <br>
+ <input ngModel name="imgSrc" type="text" required> <br>   
+ <label>Aktiivne</label> <br>
+ <input ngModel name="active" type="checkbox"> <br>
+ <button [disabled]="addingForm.invalid">Sisesta </button> <br>  
+</form>

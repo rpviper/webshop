@@ -3,5 +3,6 @@
  <div>{{product.name}}</div>
  <div>{{product.price}}</div>
  <button routerLink="/admin/edit/{{product.id}}">Muuda toodet </button>
+ <button (click)="deleteProduct(product)">Kustuta toode</button>
 </div>
 

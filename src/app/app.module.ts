@@ -13,6 +13,7 @@ import { EditProductComponent } from './admin/edit-product/edit-product.componen
 import { ViewProductComponent } from './admin/view-product/view-product.component';
 import { NgModule } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,8 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     NgbModule,
     BrowserModule,
