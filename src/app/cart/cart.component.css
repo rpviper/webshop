@@ -1,22 +1,23 @@
-.button {
- height: 20px;
- width: 20px;
- cursor: pointer;
- margin-left: 30px;
- opacity: 0.5;
-}
-
-.button:hover {
-    opacity: 1;
-    transition: 1s; /* kaua aega läheb et muutuks */
-}
 
 .cart-item {
-    display: flex;   /* asjad vasakult paremale */
-    justify-content: space-between;     /* tühja ruumi jaotus */
-    margin: 0 10%;      /* % protsent sellest kelle sees ta asub */
-    border-bottom: 1px solid black;
+    display: flex; /* vasakult paremale */
+    justify-content: space-between; /* tühja ruumi jaotus */
+    margin: 0 10%; /* tõukab eemale; 
+            1.number üleval-all  2.number vasakule-paremale */
+    border-bottom: 1px solid lightgray;
     padding: 10px 0;
+    /*
+        margin: 20px;   IGAS suunas 20px
+        margin: 30px 40px; ülevale-alla 30px   vasakule-paremale 40px
+        margin: 50px 100px 0 80px - üles 50, paremale 100, alla 60, vasakule 80
+        margin-top: 50px;
+        margin-right: 100px;
+        margin-left: 80px;
+        % - protsent sellest kelle sees ta asub
+        vh vw - protsent kõrgusest (height), protsent lehe laiusest (width)
+        px
+        0 - ei pea täpsustama mõõtühikut
+    */
 }
 
 .cart-item-pic {
@@ -24,10 +25,55 @@
     height: 225px;
 }
 
-@media only screen and (max-width: 900px) {     /* muudab väiksemaks teatud piiril */
+.cart-item-name {
+    width: 250px;
+}
+
+.cart-item-price {
+    width: 80px;
+}
+
+.cart-item-total {
+    width: 90px;
+    font-weight: bold;
+}
+
+.cart-button {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    opacity: 0.5; /* läbipaistvus */
+    transition: .5s;
+}
+
+.cart-button:hover {
+    opacity: 1.0;
+    transition: .5s;
+}
+
+.cart-item-quantity {
+    width: 70px;
+    margin: 0 10px;
+}
+
+@media only screen and (max-width: 1010px) {
     .cart-item-pic {
-        width: 100px;
-        height: 100px;
+        width: 200px;
+        height: 200px;
     }
     
+    .cart-item-name {
+        width: 200px;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .cart-item-pic {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .cart-item-name {
+        width: 150px;
+    }
 }
