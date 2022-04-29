@@ -5,6 +5,8 @@
 <form *ngIf="product" (ngSubmit)="changeProduct()" [formGroup] = "changingForm">
  <label> Nimi:  </label>
  <input formControlName="name" type="text">
+ <label> Kirjeldus:  </label>
+ <input formControlName="description" type="text">
  <label> Hind:  </label>
  <input formControlName="price" type="number">
  <label>ImgSrc: </label>

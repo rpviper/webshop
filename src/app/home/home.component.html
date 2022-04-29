@@ -1,6 +1,27 @@
+<div> {{kuup2ev | date}} </div>
+<!-- <div> {{protsent | percent}} </div>
+<div> {{rahayhik | currency}} </div>
+<div> {{lause | uppercase}} </div>
+<div> {{lause | titlecase}} </div>
+<div>{{ protsent * 100 + "%" }}</div>
+<div>{{ kuup2ev | date:'shortTime' }}</div>
+<div>{{ kuup2ev | date:'mediumTime' }}</div>
+<div>{{ kuup2ev | date:'fullTime' }}</div>
+<div>{{ kuup2ev | date:'fullDate' }}</div>
+<div>{{ rahayhik | currency:"EUR" }}</div> -->
+
+
+<button (click)="onSortAZ()">Sorteeri A-Z</button>
+<button (click)="onSortZA()">Sorteeri Z-A</button>
+<button (click)="onSortPriceAsc()">Sorteeri hind kasvavalt</button>
+<button (click)="onSortPriceDesc()">Sorteeri hind kahanevalt</button>
+
 <div *ngFor="let product of products">
  <img src="{{product.imgSrc}}" alt="">
  <div>{{product.name}}</div>
- <div>{{product.price}}</div>
+ <div>{{product.description}}</div>
+ <div>{{product.price | thousandSeparator}}</div>
  <button (click)="addToCart(product)">Lisa {{product.name}} ostukorvi </button>
 </div>
+
+

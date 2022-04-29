@@ -3,17 +3,17 @@
 <div class="cart-item" *ngFor="let cartProduct of cartProducts">
  <img class="cart-item-pic" src="{{cartProduct.product.imgSrc}}" alt="">
  <div class="cart-item-name">{{ cartProduct.product.name }}</div>
- <div class="cart-item-price">{{ cartProduct.product.price.toLocaleString("fi", {minimumFractionDigits: 2, maximumFractionDigits: 2}).replace(",",".") }} €</div>
+ <div class="cart-item-price">{{ cartProduct.product.price | thousandSeparator }} €</div>
  <div>
      <img class="cart-button" (click)="decreaseQuantity(cartProduct)" src="assets/minus.png" />
      <span class="cart-item-quantity">{{ cartProduct.quantity }} tk</span>
      <img class="cart-button" (click)="increaseQuantity(cartProduct)" src="assets/add.png" />
  </div>
- <div class="cart-item-total">{{ (cartProduct.product.price * cartProduct.quantity).toLocaleString("fi", {minimumFractionDigits: 2, maximumFractionDigits: 2}).replace(",",".") }} €</div>
+ <div class="cart-item-total">{{ (cartProduct.product.price * cartProduct.quantity) | thousandSeparator }} €</div>
  <img class="cart-button" (click)="removeProduct(cartProduct)" src="assets/remove.png" />
 </div>
 
-<h3><div *ngIf="cartProducts.length >0"> Total to pay: {{totalSum}} €</div></h3> 
+<h3><div *ngIf="cartProducts.length >0"> Total to pay: {{totalSum | thousandSeparator}} €</div></h3> 
 
 <button *ngIf="cartProducts.length >0" (click)="toPay()">Payment</button>
 

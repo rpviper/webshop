@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class EditProductComponent implements OnInit {
   changingForm: any
   url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     const productId = this.route.snapshot.paramMap.get("productId");
@@ -26,7 +26,9 @@ export class EditProductComponent implements OnInit {
       }
       this.product = this.products.find(element => Number(element.id) === Number(productId));
       this.changingForm = new FormGroup ({
+        id: new FormControl(this.product.id),   // selle pidin panema et saaks pärast kah muuta toodet
         name: new FormControl(this.product.name),
+        description: new FormControl(this.product.description),
         price: new FormControl(this.product.price),
         imgSrc: new FormControl(this.product.imgSrc),
         active: new FormControl(this.product.active)
@@ -37,8 +39,11 @@ export class EditProductComponent implements OnInit {
 changeProduct() {
   const queueNumber = this.products.indexOf(this.product);
   this.products[queueNumber] = this.changingForm.value;
-  this.http.put(this.url, this.products).subscribe();
+  this.http.put(this.url, this.products).subscribe(()=>this.router.navigateByUrl("/admin/view") );
+     // see suunab tagasi lehele instead of form.reset
 }
+
+
 
   }
 

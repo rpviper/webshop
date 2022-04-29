@@ -1,8 +1,13 @@
+<input [(ngModel)]="descriptionWordCount" type="range">
+<span> {{descriptionWordCount}} </span>  <!-- teeb numbrid sellele sliderile -->
+
 <div *ngFor="let product of products">
  <img src="{{product.imgSrc}}" alt="">
  <div>{{product.name}}</div>
  <div>{{product.price}}</div>
+ <div>{{product.description | descriptionShortener:descriptionWordCount}}</div>  <!-- mitu sõna -->
  <button routerLink="/admin/edit/{{product.id}}">Muuda toodet </button>
  <button (click)="deleteProduct(product)">Kustuta toode</button>
 </div>
 
+<!-- muuda description kah -->

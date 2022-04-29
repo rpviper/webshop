@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartProduct } from '../models/cart.product.model';
 
 @Component({
   selector: 'app-cart',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cartProducts: any[] = [];
+  cartProducts: CartProduct[] = [];
   totalSum = 0;
   totalItems = 0;
 
@@ -20,7 +21,7 @@ export class CartComponent implements OnInit {
     }
 
   }
-  decreaseQuantity(cartProduct: any) {
+  decreaseQuantity(cartProduct: CartProduct) {
     cartProduct.quantity--;
     if (cartProduct.quantity <= 0) {    // see on selle jaoks et ei läheks miinusesse ostukorv
       this.removeProduct(cartProduct);
@@ -29,13 +30,13 @@ export class CartComponent implements OnInit {
     this.cartTotalSum();
   }
   
-  increaseQuantity(cartProduct: any) {
+  increaseQuantity(cartProduct: CartProduct) {
     cartProduct.quantity++; 
     sessionStorage.setItem("cartItems", JSON.stringify(this.cartProducts));
     this.cartTotalSum();
   }
   
-  removeProduct(cartProduct: any) {
+  removeProduct(cartProduct: CartProduct) {
     const index = this.cartProducts.findIndex(element => element.product.id === cartProduct.product.id);
     if (index >= 0) {
     this.cartProducts.splice(index, 1);
@@ -64,14 +65,4 @@ export class CartComponent implements OnInit {
 
 
 
-// ISESEISVALT: ostukorvi kogusumma
-  // kui võtate hinna, siis peab olema element.product.price
-  // korrutada läbi ka kogusega
-
-  // MAKSMINE
-
-  // TÜHJENDA NUPP
-
-  // *ngIf'ga ära kustutamine kui on 0 toodet 
-  // MAKSMISE NUPP ja TÜHJENDA NUPP
 
