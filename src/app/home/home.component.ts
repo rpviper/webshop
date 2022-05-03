@@ -9,6 +9,13 @@ import { Product } from '../models/product.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/300`);
+  // on sama nagu:
+  // images = [
+  //   "https://picsum.photos/id/944/900/300",
+  //   "https://picsum.photos/id/1011/900/300",
+  //   "https://picsum.photos/id/984/900/300"
+  // ];
   products: Product[] = [];
   url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";  // this is going to be so you dont have to type it under
   kuup2ev = new Date();
@@ -46,7 +53,7 @@ export class HomeComponent implements OnInit {
       }
 
       onSortAZ() {
-        this.products.sort((a,b) => a.name.trim().localeCompare(b.name));  // .trim() on tühikute ära võtmiseks
+        this.products.sort((a,b) => a.name.trim().localeCompare(b.name));  // .trim() on tühikute ära võtmiseks lause eest (ebays olid mõned ees niimoodi)
       }
 
       onSortZA() {
@@ -62,6 +69,8 @@ export class HomeComponent implements OnInit {
         //  this.products.sort((a,b) => -1*(a.price-b.price)); on sama
       }
       
+      
+
 }
 
 

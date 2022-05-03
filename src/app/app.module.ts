@@ -16,6 +16,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { DescriptionShortenerPipe } from './pipes/description-shortener.pipe';
+import { ShopsComponent } from './shops/shops.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DescriptionShortenerPipe } from './pipes/description-shortener.pipe';
     ViewProductComponent,
     NavbarComponent,
     ThousandSeparatorPipe,
-    DescriptionShortenerPipe
+    DescriptionShortenerPipe,
+    ShopsComponent
   ],
   imports: [
     BrowserModule,

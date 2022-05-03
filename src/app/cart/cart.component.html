@@ -13,7 +13,7 @@
  <img class="cart-button" (click)="removeProduct(cartProduct)" src="assets/remove.png" />
 </div>
 
-<h3><div *ngIf="cartProducts.length >0"> Total to pay: {{totalSum | thousandSeparator}} €</div></h3> 
+<h3><div *ngIf="cartProducts.length >0"> Total to pay: {{totalSum | thousandSeparator}} </div></h3> 
 
 <button *ngIf="cartProducts.length >0" (click)="toPay()">Payment</button>
 
