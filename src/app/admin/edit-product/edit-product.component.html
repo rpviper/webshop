@@ -3,15 +3,21 @@
 <div *ngIf="!product">Laeb tooteid...</div>
 
 <form *ngIf="product" (ngSubmit)="changeProduct()" [formGroup] = "changingForm">
+ <label> ID:  </label>
+ <input formControlName="id" type="number">
  <label> Nimi:  </label>
  <input formControlName="name" type="text">
  <label> Kirjeldus:  </label>
  <input formControlName="description" type="text">
+ <label>Kategooria:</label>
+ <select formControlName="category" >
+  <option *ngFor="let category of categories" value="{{category.categoryName}} ">{{category.categoryName}}</option>
+ </select>
  <label> Hind:  </label>
  <input formControlName="price" type="number">
  <label>ImgSrc: </label>
  <input formControlName="imgSrc" type="text">
  <label> Aktiivne:  </label>
- <input formControlName="active" type="checkbox">
+ <input formControlName="isActive" type="checkbox">
  <button>Muuda</button>
 </form>

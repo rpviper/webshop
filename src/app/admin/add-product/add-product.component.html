@@ -1,8 +1,17 @@
 <button routerLink="/admin">Tagasi</button>
 
 <form (ngSubmit)="addProduct(addingForm)" #addingForm="ngForm"> 
+ <label>ID </label> <br>                               
+ <input ngModel name="id" type="number" required> <br>   
  <label>Nimetus</label> <br>                               
- <input ngModel name="name" type="text" required> <br>   
+ <input ngModel name="name" type="text" required> <br> 
+ <label>Kirjeldus</label> <br>                               
+ <input ngModel name="description" type="text"> <br> 
+ <label>Kategooria</label> <br>    
+ <select ngModel name="category">
+ <option *ngFor="let category of categories" value="{{category.categoryName}}">{{category.categoryName}}</option>
+ </select>  <br>                         
+ <!-- <input ngModel name="category" type="text" required> <br>        -->
  <label>Hind</label> <br>
  <input ngModel name="price" type="number" required> <br>   
  <label>Pilt</label> <br>

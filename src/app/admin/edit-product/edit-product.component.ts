@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from 'src/app/services/product.service';
 
 
 @Component({
@@ -13,9 +14,14 @@ export class EditProductComponent implements OnInit {
   product: any;
   private products: any[] = [];
   changingForm: any
+  categories: {categoryName: string}[] = [];
   url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";
+  
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) { }
+  constructor(private route: ActivatedRoute,    // võimaldab võtta URL-st parameetrid
+     private http: HttpClient,                  // võimaldab API päringuid teha
+      private router: Router,
+      private productService: ProductService) { }               // võimaldab URL-l liikuda läbi .ts
 
   ngOnInit(): void {
     const productId = this.route.snapshot.paramMap.get("productId");
@@ -29,9 +35,10 @@ export class EditProductComponent implements OnInit {
         id: new FormControl(this.product.id),   // selle pidin panema et saaks pärast kah muuta toodet
         name: new FormControl(this.product.name),
         description: new FormControl(this.product.description),
+        category: new FormControl(this.product.category),
         price: new FormControl(this.product.price),
         imgSrc: new FormControl(this.product.imgSrc),
-        active: new FormControl(this.product.active)
+        isActive: new FormControl(this.product.isActive)
       });
     });   
 }
@@ -41,9 +48,7 @@ changeProduct() {
   this.products[queueNumber] = this.changingForm.value;
   this.http.put(this.url, this.products).subscribe(()=>this.router.navigateByUrl("/admin/view") );
      // see suunab tagasi lehele instead of form.reset
-}
-
-
+   }
 
   }
 

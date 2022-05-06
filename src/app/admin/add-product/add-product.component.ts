@@ -1,5 +1,6 @@
 import { HttpClient} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-product',
@@ -9,15 +10,26 @@ import { Component, OnInit } from '@angular/core';
 export class AddProductComponent implements OnInit {
 
   url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";
+  categoriesUrl = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/categories.json";
+
+  categories: {categoryName: string}[] = [];
 
   constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  // kui lähen lehele pannakse see kõigepealt käima, et oleks juba kategooriad olemas
+    this.http.get<{categoryName: string}[]>(this.categoriesUrl).subscribe(categoriesFromDb => {   // see nüüd läheb sinna lisa toode dropdown menüüsse
+      const newArray = [];
+      for (const key in categoriesFromDb) {
+        newArray.push(categoriesFromDb[key]);
+      }
+      this.categories = newArray;
+    });
   }
 
-addProduct(form: any) {
-  if (form.valid) {
-    this.http.post(this.url, form.value).subscribe();
+addProduct(addingForm: NgForm) {
+  if (addingForm.valid) {
+    this.http.post(this.url, addingForm.value).subscribe();
+    addingForm.reset();
   }
 }
 

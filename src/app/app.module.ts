@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
 import { DescriptionShortenerPipe } from './pipes/description-shortener.pipe';
 import { ShopsComponent } from './shops/shops.component';
+import { CategoryComponent } from './admin/category/category.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ShopsComponent } from './shops/shops.component';
     NavbarComponent,
     ThousandSeparatorPipe,
     DescriptionShortenerPipe,
-    ShopsComponent
+    ShopsComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
