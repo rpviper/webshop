@@ -7,6 +7,7 @@
  <img src="{{product.imgSrc}}" alt="">
  <div>{{product.name}}</div>
  <div>{{product.price}}</div>
+ <div>{{product.category}}</div>
  <div>{{product.description | descriptionShortener:descriptionWordCount}}</div>  <!-- mitu sõna -->
  <button routerLink="/admin/edit/{{product.id}}">Muuda toodet </button>
  <button (click)="deleteProduct(product)">Kustuta toode</button>

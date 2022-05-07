@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 
 
@@ -11,11 +12,13 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
-  product: any;
-  private products: any[] = [];
-  changingForm: any
+  
+  products: Product[] = [];
+  changingForm!: FormGroup
   categories: {categoryName: string}[] = [];
   url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";
+  categoriesUrl = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/categories.json";
+  product!: Product;
   
 
   constructor(private route: ActivatedRoute,    // võimaldab võtta URL-st parameetrid
@@ -25,23 +28,47 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit(): void {
     const productId = this.route.snapshot.paramMap.get("productId");
+    if (productId) {
+      this.getProductsFromDb(productId);
+    }
+    this.getCategoriesFromDb();
+    }
     
-    this.http.get<any>(this.url).subscribe(response => { 
-      for (const key in response) {
-        this.products.push(response[key]);
-      }
-      this.product = this.products.find(element => Number(element.id) === Number(productId));
-      this.changingForm = new FormGroup ({
-        id: new FormControl(this.product.id),   // selle pidin panema et saaks pärast kah muuta toodet
+    private getProductsFromDb(productId: string) {
+      this.productService.getProductsFromDb().subscribe(response => { 
+        for (const key in response) {
+          this.products.push(response[key]);
+        }
+        const productFound = this.products.find(element => Number(element.id) === Number(productId));
+        if (productFound) {
+          this.product = productFound;
+        }
+        this.initEditForm();
+      }); 
+    }
+  
+    private initEditForm() {
+      this.changingForm = new FormGroup({
+        id: new FormControl(this.product.id),
         name: new FormControl(this.product.name),
-        description: new FormControl(this.product.description),
-        category: new FormControl(this.product.category),
         price: new FormControl(this.product.price),
         imgSrc: new FormControl(this.product.imgSrc),
-        isActive: new FormControl(this.product.isActive)
+        category: new FormControl(this.product.category),
+        description: new FormControl(this.product.description),
+        isActive: new FormControl(this.product.isActive),
+      })
+    } 
+  
+    private getCategoriesFromDb() {
+      this.http.get<{categoryName: string}[]>(this.categoriesUrl).subscribe(categoriesFromDb => {
+        const newArray = [];
+        for (const key in categoriesFromDb) {
+          newArray.push(categoriesFromDb[key]);
+        }
+        this.categories = newArray;
       });
-    });   
-}
+    }
+  
 
 changeProduct() {
   const queueNumber = this.products.indexOf(this.product);
