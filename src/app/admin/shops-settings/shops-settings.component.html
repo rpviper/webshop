@@ -1,0 +1,21 @@
+<button routerLink="/admin" >Tagasi</button>
+
+<form (ngSubmit)="onSubmit(addShopForm)" #addShopForm = "ngForm">
+ <label>Pood</label><br>
+ <input ngModel name="shopName" type="text" required> <br>
+ <label>Latitude</label><br>
+ <input ngModel name="latitude" type="number" required> <br>
+ <label>Longitude</label><br>
+ <input ngModel name="longitude" type="number" required> <br>
+ <label>Lahtiolekuajad</label><br>
+ <input ngModel name="openTimes" type="text" required> <br><br>
+ <button [disabled]="addShopForm.invalid" >Sisesta uus pood</button>
+</form><br>
+
+<div *ngFor="let shop of shops" >
+ <div>{{shop.shopName}} </div>
+ <div>{{shop.latitude}} </div>
+ <div>{{shop.longitude}} </div>
+ <div>{{shop.openTimes}} </div>
+ <button (click)="deleteShop(shop)" >X</button>
+</div>

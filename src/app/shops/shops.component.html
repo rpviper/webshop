@@ -1,8 +1,9 @@
 <button (click)="onZoomShop('all')">Kõik poed</button>
-<button (click)="onZoomShop('kristiine')">Kristiine keskus</button>
-<button (click)="onZoomShop('ahhaa')">Ahhaa keskus</button>
+<!-- <button (click)="onZoomShop('kristiine')">Kristiine keskus</button>
+<button (click)="onZoomShop('ahhaa')">Ahhaa keskus</button> -->
 
-
+<button *ngFor="let shop of shops"
+(click)="onZoomShop(shop.shopName)" >{{shop.shopName}} </button>
 
 
 <div class="map-container">

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';   // siit tuleb see L
 
@@ -22,6 +23,11 @@ L.Marker.prototype.options.icon = iconDefault;
   styleUrls: ['./shops.component.css']
 })
 export class ShopsComponent implements OnInit, AfterViewInit {
+
+  url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/shops.json";
+  shops: {shopName : string,
+  latitude : number,
+  longitude : number, openTimes: string}[] = [];
   private map!: L.Map;
   private lng = 58.5953;
   private lat = 25.0136;
@@ -43,37 +49,48 @@ export class ShopsComponent implements OnInit, AfterViewInit {
 
     tiles.addTo(this.map);
 
-    this.marker = L.marker([59.4341, 24.7489]);
-    this.marker.addTo(this.map);
-    this.marker.bindPopup("<div>Kristiine keskus</div><br><div>Lahtioleku aeg: 9 - 19</div>");
+    // this.marker = L.marker([59.4341, 24.7489]);
+    // this.marker.addTo(this.map);
+    // this.marker.bindPopup("<div>Kristiine keskus</div><br><div>Lahtioleku aeg: 9 - 19</div>");
    
-    this.marker2 = L.marker([58.3771, 26.7405]);
-    this.marker2.addTo(this.map);
-    this.marker2.bindPopup("<div>Ahhaa keskus</div><br><div>Lahtioleku aeg: 9 - 17</div>");
+    // this.marker2 = L.marker([58.3771, 26.7405]);
+    // this.marker2.addTo(this.map);
+    // this.marker2.bindPopup("<div>Ahhaa keskus</div><br><div>Lahtioleku aeg: 9 - 17</div>");
+
+    this.shops.forEach(element => {
+      this.marker = L.marker([element.latitude, element.longitude]);
+      this.marker.addTo(this.map);
+      this.marker.bindPopup("<div>"+element.shopName+
+      "</div><br><div>Lahtioleku aeg: "+element.openTimes+"</div>");
+    })
    
   }
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    this.initMap();
-   }
-
+    this.http.get<{shopName: string,
+      latitude: number,
+      longitude: number, openTimes: string}[]>(this.url).subscribe(shopsFromDb => {
+        const newArray = [];
+        for (const key in shopsFromDb) {
+          newArray.push(shopsFromDb[key]);
+        }
+        this.shops = newArray;
+        this.initMap();
+      } )
+    }
+  
   onZoomShop(shopName: string) {
-    if (shopName === "kristiine") {
-      this.map.setView(L.latLng([59.4341, 24.7489]),15)
-      this.marker.openPopup()
-      } else if (shopName === "ahhaa") {
-        this.map.setView(L.latLng([58.3771, 26.7405]),15)
-        this.marker2.openPopup()    // see on siis et näitaks aadressi kohe peal popupis
+    const shopFound = this.shops.find(element => element.shopName === shopName);
+    if (shopFound) {
+      this.map.setView(L.latLng([shopFound.latitude, shopFound.longitude]),15);
       } else {
-        this.map.setView(L.latLng([58.5953, 25.0136]),7)
-        this.marker.closePopup()
-        this.marker2.closePopup()
+        this.map.setView(L.latLng([58.5953, 25.0136]),7);
       }
-  }
+   
 
+ }
 }
-
 

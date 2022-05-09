@@ -35,5 +35,6 @@ export class CategoryComponent implements OnInit {
     this.http.put(this.url, this.categories).subscribe();
   }
 
+ 
 
 }
