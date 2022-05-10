@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';   // siit tuleb see L
 
+declare let Email: any;
+import 'src/assets/smtp.js';
+
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
@@ -89,8 +92,22 @@ export class ShopsComponent implements OnInit, AfterViewInit {
       } else {
         this.map.setView(L.latLng([58.5953, 25.0136]),7);
       }
-   
+    }
 
- }
+  onSendEmail() {
+    Email.send({
+      Host : "smtp.elasticemail.com",
+      Username : "x6x6x61982@hotmail.com",
+      Password : "76BA491C5118D4DD2F27AF8EB78F039BC243",
+      To : 'raino.paal@hotmail.com',
+      From : "x6x6x61982@hotmail.com",
+      Subject : "Pood töötab",
+      Body : "Siin on emaili sisu"
+  }).then(
+    (message: any) => alert(message)
+  );
+  
+  }
+
 }
 

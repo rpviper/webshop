@@ -2,7 +2,9 @@
 
 <input [(ngModel)]="descriptionWordCount" type="range">
 <span> {{descriptionWordCount}} </span>  <!-- teeb numbrid sellele sliderile -->
-
+<br><br>
+<input [(ngModel)]="searchedProduct" (ngModelChange)="onFilterProducts()" type="text">
+<br><br>
 <div *ngFor="let product of products">
  <img src="{{product.imgSrc}}" alt="">
  <div>{{product.name}}</div>

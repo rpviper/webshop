@@ -45,10 +45,14 @@ export class HomeComponent implements OnInit {
      const index = cartItems.findIndex(element => element.product.id === productClicked.id);
      if (index >= 0) {
       cartItems[index].quantity++;    // ++ suurendab ühe võrra, += 3 suurendab 3 võrra alati näiteks
-     } else {
+    } else {
+      const parcelMachineIndex = cartItems.findIndex(element => element.product.id === 11110000) // see oli selle jaoks et parcel maksumus jääks alati lõppu
+      if (parcelMachineIndex >= 0) {
+        cartItems.splice(parcelMachineIndex, 0, {product: productClicked, quantity: 1});
+    } else {
       cartItems.push({product: productClicked, quantity: 1});
      }
-
+    }
      sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
       }
 
