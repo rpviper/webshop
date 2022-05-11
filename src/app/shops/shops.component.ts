@@ -115,6 +115,7 @@ export class ShopsComponent implements OnInit, AfterViewInit {
         }).then( 
     (message: any) => alert("E-mail saadetud, täname tagasiside eest.")    
       );
+      // panin siia console.log(this.name etc) ja näitas et on kätte saanud
      }
 
 }
