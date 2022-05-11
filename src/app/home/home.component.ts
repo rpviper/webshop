@@ -23,6 +23,10 @@ export class HomeComponent implements OnInit {
   rahayhik = 1000000;
   lause = "vitamin well without sugar";
 
+   // 1. *ngFor
+  // 2. objektid {url: "https://", header: "", text: "", alt: ""}
+  // 3. HTML-s src={{image.url}}
+
   constructor(private http: HttpClient) { }
 
  
@@ -53,6 +57,14 @@ export class HomeComponent implements OnInit {
       cartItems.push({product: productClicked, quantity: 1});
      }
     }
+ // enne kui pushin otsi üles kas sellist toodet juba on ostukorvi esemete hulgas
+    // sulgude seest tuleva eseme ID ---> product.id
+    // otsin kas seda on cartItems seas  ----> .findIndex(element => element.id === product.id)
+    // kui ON, siis teen ühte loogikat
+    // kui EI OLE, siis teen teist loogikat
+    // if ()  index >= 0  ---> suurendan kogust
+    // else  index === -1  --->   lisan ostukorvi  .push abil 
+
      sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
       }
 

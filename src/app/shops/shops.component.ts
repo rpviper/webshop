@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import * as L from 'leaflet';   // siit tuleb see L
 
 declare let Email: any;
 import 'src/assets/smtp.js';
+import { Shops } from '../models/shops.model';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -28,15 +30,14 @@ L.Marker.prototype.options.icon = iconDefault;
 export class ShopsComponent implements OnInit, AfterViewInit {
 
   url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/shops.json";
-  shops: {shopName : string,
-  latitude : number,
-  longitude : number, openTimes: string}[] = [];
+  shops: Shops[] = []
   private map!: L.Map;
   private lng = 58.5953;
   private lat = 25.0136;
   private zoom = 7; 
   private marker!: L.Marker;    // need L tulevad ülevalt rida 2
   private marker2!: L.Marker;
+ 
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -73,9 +74,7 @@ export class ShopsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    this.http.get<{shopName: string,
-      latitude: number,
-      longitude: number, openTimes: string}[]>(this.url).subscribe(shopsFromDb => {
+    this.http.get<Shops[]>(this.url).subscribe(shopsFromDb => {
         const newArray = [];
         for (const key in shopsFromDb) {
           newArray.push(shopsFromDb[key]);
@@ -94,20 +93,29 @@ export class ShopsComponent implements OnInit, AfterViewInit {
       }
     }
 
-  onSendEmail() {
+     // <input [(ngModel)]="muutuja" type="text" />
+  // <input [(ngModel)]="pealkiri" type="text" />
+
+  body: any
+  subject: any;
+  email: any;
+  name: any;
+ 
+
+  onSendEmail(addEmailForm: NgForm) {
     Email.send({
       Host : "smtp.elasticemail.com",
       Username : "x6x6x61982@hotmail.com",
       Password : "76BA491C5118D4DD2F27AF8EB78F039BC243",
       To : 'raino.paal@hotmail.com',
-      From : "x6x6x61982@hotmail.com",
-      Subject : "Pood töötab",
-      Body : "Siin on emaili sisu"
-  }).then(
-    (message: any) => alert(message)
-  );
-  
-  }
+      Name: this.name,    
+      From : this.email, 
+      Subject : this.subject, 
+      Body : this.body 
+        }).then( 
+    (message: any) => alert("E-mail saadetud, täname tagasiside eest.")    
+      );
+     }
 
 }
 

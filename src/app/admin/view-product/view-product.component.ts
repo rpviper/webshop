@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ViewProductComponent implements OnInit {
 
-  descriptionWordCount = 3;
+  descriptionWordCount = 5;
   products: Product[] = [];
   originalProducts: Product[] = [];
   url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";  // this is going to be so you dont have to type it under
@@ -38,9 +38,9 @@ deleteProduct(product: Product) {
   this.http.put(this.url, this.products).subscribe();
     }  
 
- onFilterProducts() { // toLOwerCase siis ei hooli kas trükid suured v väikesed tähed
+ onFilterProducts() { // toLowerCase siis ei hooli kas trükid suured v väikesed tähed
    this.products = this.originalProducts.filter(element => element.name.toLocaleLowerCase().indexOf(this.searchedProduct.toLocaleLowerCase()) >= 0 ||   // filtreerimise funktsioon
-   element.description.toLocaleLowerCase().indexOf(this.searchedProduct.toLocaleLowerCase()) >= 0 ||    // || => or funktsioon
+   element.description.toLocaleLowerCase().indexOf(this.searchedProduct.toLocaleLowerCase()) >= 0 ||    // || => on or funktsioon
    element.id.toString().indexOf(this.searchedProduct.toLocaleLowerCase()) >= 0 )   // kuna see on numbri otsing siis oeab olema toString
     }
     
