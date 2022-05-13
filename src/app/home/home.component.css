@@ -10,3 +10,8 @@
 .picsum-img-wrapper img {
  width: 100%;
 }
+
+.category-selected {
+ font-weight: bold;
+ font-size: 20px;
+}

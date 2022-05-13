@@ -1,6 +1,9 @@
 import { HttpClient} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Product } from 'src/app/models/product.model';
+import { CategoryService } from 'src/app/services/category.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-add-product',
@@ -11,19 +14,28 @@ export class AddProductComponent implements OnInit {
 
   url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";
   categoriesUrl = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/categories.json";
-
+  productId!: number;
   categories: {categoryName: string}[] = [];
+  products: Product[] = [];
+  idUnique = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private productService: ProductService,
+    private categoryService: CategoryService) { }
 
   ngOnInit(): void {  // kui lähen lehele pannakse see kõigepealt käima, et oleks juba kategooriad olemas
-    this.http.get<{categoryName: string}[]>(this.categoriesUrl).subscribe(categoriesFromDb => {   // see nüüd läheb sinna lisa toode dropdown menüüsse
+    this.categoryService.getCategoriesFromDb().subscribe(categoriesFromDb => {   // see nüüd läheb sinna lisa toode dropdown menüüsse
       const newArray = [];
       for (const key in categoriesFromDb) {
         newArray.push(categoriesFromDb[key]);
       }
       this.categories = newArray;
     });
+    this.productService.getProductsFromDb().subscribe(response => { 
+      for (const key in response) {
+        this.products.push(response[key]);
+        }
+  }); 
   }
 
 addProduct(addingForm: NgForm) {
@@ -31,6 +43,17 @@ addProduct(addingForm: NgForm) {
     this.http.post(this.url, addingForm.value).subscribe();
     addingForm.reset();
   }
+}
+
+onCheckIdUniqueness() {
+  const index = this.products.findIndex(element => element.id === this.productId);
+  if (index >= 0) {   // tee ise et oleks 8 kohaline ID number
+    this.idUnique = false;
+    // console.log("Mitteunikaalne ID!");
+    } else {
+      this.idUnique = true;
+      // console.log("Kellelgi teisel ei ole");
+    }
 }
 
 }

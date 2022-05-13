@@ -42,6 +42,13 @@
 <div>{{ kuup2ev | date:'fullDate' }}</div>
 <div>{{ rahayhik | currency:"EUR" }}</div> -->
 
+<div (click)="onFilterByCategory('')"  
+[ngClass]="{'category-selected': '' === selectedCategory} " >Kõik kategooriad</div> <!-- tühjuse category '' -->
+
+<div *ngFor="let category of categories"
+ (click)="onFilterByCategory(category)"
+ [ngClass]="{'category-selected': category === selectedCategory} "
+>{{ category }}</div>
 
 <button (click)="onSortAZ()">Sorteeri A-Z</button>
 <button (click)="onSortZA()">Sorteeri Z-A</button>

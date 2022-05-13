@@ -18,7 +18,7 @@
 
 <select [(ngModel)]="selectedParcelMachine"
 (ngModelChange)="onParcelMachineSelected()" 
-*ngIf="!selectedParcelMachine">
+*ngIf="!selectedParcelMachine && cartProducts.length" >0> <!-- vali pakiautomaat kaob ära kui on tühi -->
     <option value="">Vali pakiautomaat</option>
     <option *ngFor="let machine of parcelMachines">{{machine.NAME}} ({{machine.A1_NAME}})</option> <!-- see NAME tuli omniva .json lehelt, pidi olema kõim suured tähed sest see oli niimoodi seal lehel -->
 </select><br>

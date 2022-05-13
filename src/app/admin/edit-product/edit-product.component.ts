@@ -73,7 +73,7 @@ export class EditProductComponent implements OnInit {
 changeProduct() {
   const queueNumber = this.products.indexOf(this.product);
   this.products[queueNumber] = this.changingForm.value;
-  this.http.put(this.url, this.products).subscribe(()=>this.router.navigateByUrl("/admin/view") );
+  this.productService.updateProductsInDb(this.products).subscribe(()=>this.router.navigateByUrl("/admin/view") );
      // see suunab tagasi lehele instead of form.reset
    }
 

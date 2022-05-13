@@ -109,7 +109,7 @@ export class ShopsComponent implements OnInit, AfterViewInit {
       Password : "76BA491C5118D4DD2F27AF8EB78F039BC243",
       To : 'raino.paal@hotmail.com',
       Name: this.name,    
-      From : this.email, 
+      From : this.email,    // selle pead hoopis texti sisse kuidagi orgunnima
       Subject : this.subject, 
       Body : this.body 
         }).then( 

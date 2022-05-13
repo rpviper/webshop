@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CartProduct } from '../models/cart.product.model';
 import { Product } from '../models/product.model';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -22,24 +23,40 @@ export class HomeComponent implements OnInit {
   protsent = 0.5;
   rahayhik = 1000000;
   lause = "vitamin well without sugar";
+  categories: string[] = [];
+  selectedCategory = "";
+  originalProducts: Product[] = [];
 
    // 1. *ngFor
   // 2. objektid {url: "https://", header: "", text: "", alt: ""}
   // 3. HTML-s src={{image.url}}
 
-  constructor(private http: HttpClient) { }
+  constructor(private productService: ProductService) { }
 
  
 
   ngOnInit(): void {
-    this.http.get<Product[]>(this.url).subscribe(response => {   // here it is url  // subscribe is making things later than codes that come below
+    this.productService.getProductsFromDb().subscribe(response => {   // here it is url  // subscribe is making things later than codes that come below
       
       for (const key in response) {
         this.products.push(response[key]);
+        this.originalProducts.push(response[key]);
       }
+      this.categories = this.products.map(element => element.category);   // map asendab
+      this.categories = [...new Set(this.categories)];
     });  
-      
+   }
+
+   onFilterByCategory(category: string) {
+    this.selectedCategory = category;
+    if (category === '') {
+      this.products = this.originalProducts;
+    } else {
+      this.products = this.originalProducts.filter(element => element.category === category);
+    }
   }
+
+
   addToCart(productClicked: Product) {
      const cartItemsSS = sessionStorage.getItem("cartItems");
      let cartItems: CartProduct[] = [];
@@ -66,6 +83,7 @@ export class HomeComponent implements OnInit {
     // else  index === -1  --->   lisan ostukorvi  .push abil 
 
      sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+     this.productService.cartChanged.next(true);   // next tähendab et toimus muutus ostukorvis
       }
 
       onSortAZ() {
