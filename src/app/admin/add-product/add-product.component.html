@@ -17,7 +17,9 @@
  <input ngModel name="description" type="text"> <br> 
  <label>Kategooria</label> <br>    
  <select ngModel name="category">
- <option *ngFor="let category of categories" value="{{category.categoryName}}">{{category.categoryName}}</option>
+   <option value="" disabled selected>Vali kategooria</option>
+   <option *ngFor="let category of categories" value="{{category}} ">{{category}} </option>
+ <!-- <option *ngFor="let category of categories" value="{{category.categoryName}}">{{category.categoryName}}</option> -->
  </select>  <br>                         
  <!-- <input ngModel name="category" type="text" required> <br>        -->
  <label>Hind</label> <br>

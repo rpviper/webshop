@@ -2,10 +2,11 @@
 
 <form (ngSubmit)="onSubmit(addCategoryForm)" #addCategoryForm="ngForm">
  <label>Kategooria: </label><br>
- <input ngModel name="categoryName" type="text" required><br>
+ <input ngModel name="category" type="text" required><br>
  <button [disabled]="addCategoryForm.invalid">Sisesta</button>
 </form> <br> <br>
 
-<div *ngFor="let category of categories" >
- {{category.categoryName}} <button (click)="onDeleteCategory(category)" >X</button>
+<div *ngFor="let category of categories; let i = index" >
+ <div>{{category}} </div>
+ <button (click)="onDeleteCategory(i)" >X</button>
 </div>

@@ -107,11 +107,10 @@ export class ShopsComponent implements OnInit, AfterViewInit {
       Host : "smtp.elasticemail.com",
       Username : "x6x6x61982@hotmail.com",
       Password : "76BA491C5118D4DD2F27AF8EB78F039BC243",
-      To : 'raino.paal@hotmail.com',
-      Name: this.name,    
-      From : this.email,    // selle pead hoopis texti sisse kuidagi orgunnima
-      Subject : this.subject, 
-      Body : this.body 
+      To : 'raino.paal@hotmail.com',        
+      From :"x6x6x61982@hotmail.com",    
+      Subject :"Kliendi email: " + this.email, 
+      Body :"Klient kirjutas: " + this.body 
         }).then( 
     (message: any) => alert("E-mail saadetud, täname tagasiside eest.")    
       );

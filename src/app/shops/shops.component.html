@@ -8,12 +8,10 @@
 <form (ngSubmit)="onSendEmail(addEmailForm)" #addEmailForm ="ngForm">
   <fieldset>
     <legend>Võta meiega ühendust</legend>
-    <label>Sinu nimi</label>  <br>
-    <input [(ngModel)] = "name" name = "name" type="text" placeholder="Sisesta nimi" size="20" required ><br> 
-    <label>E-mail aadress</label>  <br>
-    <input [(ngModel)] = "email" name = "email" type="text" placeholder="Sisesta e-mail" size="20" required><br>
-    <label>Pealkiri</label>  <br>
-    <input [(ngModel)] = "subject" name = "subject" type="text" size="20"><br>
+    
+    <label>E-mail</label>  <br>
+    <input [(ngModel)] = "email" name = "email" type="email" size="20" placeholder="example@example.com"
+    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" > <br>
     <label>Sisu</label>  <br>
     <textarea [(ngModel)] = "body" name = "body" type="text" cols="40" rows="6" required></textarea><br>
     <button [disabled] = "addEmailForm.invalid" >Saada</button>

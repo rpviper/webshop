@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-category',
@@ -8,33 +9,60 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/categories.json"   // siin muutsime ära category.json
-  categories: {categoryName: string}[] = []
+  // url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/categories.json"   // siin muutsime ära category.json
+  categories: string[] = []
 
-  constructor(private http: HttpClient) { }
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
-    this.http.get<{categoryName: string}[]>(this.url).subscribe(categoriesFromDb => {
-      const newArray = [];
+    this.categoryService.getCategoriesFromDb().subscribe(categoriesFromDb => {
+      this.categoryService.categories = [];
       for (const key in categoriesFromDb) {
-        newArray.push(categoriesFromDb[key]);
+        this.categories.push(categoriesFromDb[key].category);
+        this.categoryService.categories.push({id: key, category: categoriesFromDb[key].category});
       }
-      this.categories = newArray;
-    });
+    })
   }
 
-  onSubmit(addCategoryForm: NgForm) {
-    this.http.post(this.url,addCategoryForm.value).subscribe(() => {
-      this.categories.push(addCategoryForm.value);
-    });
+  onSubmit(form: NgForm) {
+    this.categories.push(form.value.category);
+    this.categoryService.categories.push(form.value.category);
+    this.categoryService.addCategory(form.value.category).subscribe();
+    form.reset();
   }
 
-  onDeleteCategory(category: {categoryName: string}) {
-    const index = this.categories.findIndex(element => element.categoryName === category.categoryName)
-    this.categories.splice(index, 1);
-    this.http.put(this.url, this.categories).subscribe();
+  onDeleteCategory(i: number) {
+    this.categoryService.categories.splice(i, 1);
+    this.categories.splice(i, 1);
+    this.categoryService.saveCategories().subscribe(() => alert("Kustutatud!"));
   }
+}
 
  
 
-}
+
+
+
+
+// ngOnInit(): void {
+//   this.http.get<{categoryName: string}[]>(this.url).subscribe(categoriesFromDb => {
+//     const newArray = [];
+//     for (const key in categoriesFromDb) {
+//       newArray.push(categoriesFromDb[key]);
+//     }
+//     this.categories = newArray;
+//   });
+// }
+
+// onDeleteCategory(category: {categoryName: string}) {
+//   const index = this.categories.findIndex(element => element.categoryName === category.categoryName)
+//   this.categories.splice(index, 1);
+//   this.http.put(this.url, this.categories).subscribe();
+// }
+
+// onSubmit(addCategoryForm: NgForm) {
+//   this.http.post(this.url,addCategoryForm.value).subscribe(() => {
+//     this.categories.push(addCategoryForm.value);
+//   });
+// }
+

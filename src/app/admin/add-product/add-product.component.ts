@@ -15,7 +15,7 @@ export class AddProductComponent implements OnInit {
   url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";
   categoriesUrl = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/categories.json";
   productId!: number;
-  categories: {categoryName: string}[] = [];
+  categories: string[] = [];
   products: Product[] = [];
   idUnique = false;
 
@@ -25,11 +25,10 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {  // kui lähen lehele pannakse see kõigepealt käima, et oleks juba kategooriad olemas
     this.categoryService.getCategoriesFromDb().subscribe(categoriesFromDb => {   // see nüüd läheb sinna lisa toode dropdown menüüsse
-      const newArray = [];
-      for (const key in categoriesFromDb) {
-        newArray.push(categoriesFromDb[key]);
-      }
-      this.categories = newArray;
+     this.categoryService.categories = [];
+     for (const key in categoriesFromDb) {
+       this.categories.push(categoriesFromDb[key].category);
+     }
     });
     this.productService.getProductsFromDb().subscribe(response => { 
       for (const key in response) {
