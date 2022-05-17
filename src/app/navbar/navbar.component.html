@@ -5,11 +5,15 @@
      <span class="navbar-toggler-icon"></span>
    </button>
 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-     <div class="navbar-nav">
-       <a class="nav-link" routerLink="/admin">{{"nav.admin-button" | translate}}</a>
+     <div class="navbar-nav">      
+      <a class="nav-link" *ngIf="!loggedIn" routerLink="/logi-sisse">Logi sisse</a>
+      <a class="nav-link" *ngIf="!loggedIn" routerLink="/registreeru">Registreeru</a>
+      <a class="nav-link" *ngIf="loggedIn" (click)="onLogout()" >Logi välja</a>
+       <a class="nav-link" *ngIf="loggedIn" routerLink="/admin">{{"nav.admin-button" | translate}}</a>
+       <a class="nav-link" routerLink="/shops">{{"nav.map-button" | translate}}</a>
        <a class="nav-link" routerLink="/cart">{{"nav.cart-button" | translate}}</a>
        <div>{{ sumOfCart | thousandSeparator }}</div>
-       <a class="nav-link" routerLink="/shops">{{"nav.map-button" | translate}}</a>
+       
      </div>
      <img class="lang" src="assets/uk.png" alt="" (click)="useLanguage('en') ">
      <img class="lang" src="assets/estonia.png" alt="" (click)="useLanguage('ee') ">
@@ -17,3 +21,6 @@
    </div>
  </div>
 </nav>
+
+<!-- *ngIf="loggedIn === false" on täpselt sama nagu *ngIf="!loggedIn" -->
+<!-- *ngIf="loggedIn === true" on täpselt sama nagu *ngIf="loggedIn" -->

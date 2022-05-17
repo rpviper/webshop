@@ -1,0 +1,9 @@
+<ngb-alert type="danger" *ngIf="error">{{ error }}</ngb-alert>
+
+<form (ngSubmit)="onLogin(form)" #form="ngForm">
+ <label>Email</label> <br>
+ <input ngModel name="email" type="text" required> <br>
+ <label>Parool</label> <br>
+ <input ngModel name="password" type="password" required> <br><br>
+ <button [disabled]="form.invalid" >Logi sisse</button>
+</form>

@@ -19,6 +19,8 @@ import { DescriptionShortenerPipe } from './pipes/description-shortener.pipe';
 import { ShopsComponent } from './shops/shops.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { ShopsSettingsComponent } from './admin/shops-settings/shops-settings.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ShopsSettingsComponent } from './admin/shops-settings/shops-settings.co
     DescriptionShortenerPipe,
     ShopsComponent,
     CategoryComponent,
-    ShopsSettingsComponent
+    ShopsSettingsComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

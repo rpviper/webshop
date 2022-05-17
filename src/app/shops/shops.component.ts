@@ -109,13 +109,12 @@ export class ShopsComponent implements OnInit, AfterViewInit {
       Password : "76BA491C5118D4DD2F27AF8EB78F039BC243",
       To : 'raino.paal@hotmail.com',        
       From :"x6x6x61982@hotmail.com",    
-      Subject :"Kliendi email: " + this.email, 
+      Subject :"Kliendi email: " + this.email + " " + new Date(), 
       Body :"Klient kirjutas: " + this.body 
         }).then( 
     (message: any) => alert("E-mail saadetud, täname tagasiside eest.")    
       );
-      // panin siia console.log(this.name etc) ja näitas et on kätte saanud
-     }
+     }     
+    }
 
-}
 
