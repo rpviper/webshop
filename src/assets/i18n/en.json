@@ -1,5 +1,7 @@
 {
  "nav.admin-button": "Admin",
  "nav.cart-button": "Cart",
- "nav.map-button": "Map"
+ "nav.map-button": "Map",
+ "Edukalt ": "Added ",
+ " ostukorvi lisatud": " to cart successfully"
 }

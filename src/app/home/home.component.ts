@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { ToastService } from 'angular-toastify';
 import { AuthService } from '../auth/auth.service';
 import { CartProduct } from '../models/cart.product.model';
 import { Product } from '../models/product.model';
@@ -11,13 +13,15 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/300`);
+
+  // images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/300`);
   // on sama nagu:
   // images = [
   //   "https://picsum.photos/id/944/900/300",
   //   "https://picsum.photos/id/1011/900/300",
   //   "https://picsum.photos/id/984/900/300"
   // ];
+  images: any[] = [];
   products: Product[] = [];
   url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";  // this is going to be so you dont have to type it under
   kuup2ev = new Date();
@@ -34,13 +38,16 @@ export class HomeComponent implements OnInit {
   // 3. HTML-s src={{image.url}}
 
   constructor(private productService: ProductService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private _toastService: ToastService,
+    private translateService: TranslateService,
+    private http: HttpClient
+    ) { }
 
  
 
   ngOnInit(): void {
     this.productService.getProductsFromDb().subscribe(response => {   // here it is url  // subscribe is making things later than codes that come below
-      
       for (const key in response) {
         this.products.push(response[key]);
         this.originalProducts.push(response[key]);
@@ -48,10 +55,17 @@ export class HomeComponent implements OnInit {
       this.categories = this.products.map(element => element.category);   // map asendab
       this.categories = [...new Set(this.categories)];
     });  
-
     this.authService.loggedInChanged.subscribe(loggedInFromSubject => {
       this.loggedIn = loggedInFromSubject;
     })
+    this.http.get<{imgName: string}[]>(this.url).subscribe(imagesFromDb => {
+      const newArray = [];
+      for (const key in imagesFromDb) {
+        newArray.push(imagesFromDb[key]);
+      }
+      this.images = newArray;
+      console.log(this.images);
+    });
    }
 
    onFilterByCategory(category: string) {
@@ -91,7 +105,12 @@ export class HomeComponent implements OnInit {
 
      sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
      this.productService.cartChanged.next(true);   // next tähendab et toimus muutus ostukorvis
-      }
+     this._toastService.success(this.translateService.instant('Edukalt ') + 
+     productClicked.name + 
+     this.translateService.instant(' ostukorvi lisatud'));
+  }
+// this._toastService.success('Edukalt ' + productClicked.name + ' ostukorvi lisatud');
+// this._toastService.success(`Edukalt ${productClicked.name} ostukorvi lisatud`);
 
       onSortAZ() {
         this.products.sort((a,b) => a.name.trim().localeCompare(b.name));  // .trim() on tühikute ära võtmiseks lause eest (ebays olid mõned ees niimoodi)

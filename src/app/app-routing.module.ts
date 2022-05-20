@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddProductComponent } from './admin/add-product/add-product.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { CarouselSettingsComponent } from './admin/carousel-settings/carousel-settings.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { EditProductComponent } from './admin/edit-product/edit-product.component';
 import { ShopsSettingsComponent } from './admin/shops-settings/shops-settings.component';
@@ -26,7 +27,8 @@ const routes: Routes = [
     {path: "edit/:productId", component: EditProductComponent},
     {path: "view", component: ViewProductComponent},  
     {path: "category", component: CategoryComponent},
-    {path: "shops-settings", component: ShopsSettingsComponent}
+    {path: "shops-settings", component: ShopsSettingsComponent},
+    {path: "carousel-settings", component: CarouselSettingsComponent}
   ]}
 
  

@@ -7,3 +7,10 @@
  <input ngModel name="password" type="password" required> <br><br>
  <button [disabled]="form.invalid" >Logi sisse</button>
 </form>
+
+<lib-toastify-toast-container 
+[autoClose]="2000"
+[position]="'top-right'"
+[hideProgressBar]="true"
+
+></lib-toastify-toast-container>

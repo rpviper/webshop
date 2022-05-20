@@ -5,12 +5,14 @@
 <br><br>
 <input [(ngModel)]="searchedProduct" (ngModelChange)="onFilterProducts()" type="text">
 <br><br>
-<div *ngFor="let product of products">
+<div *ngFor="let product of products" [ngClass]="{'active': product.isActive, 'inactive': !product.isActive} " >
+<div (click)="onChangeProductActive(product)" >  <!-- muudab raami ümber punane v roheline kui peale klikkida -->
  <img src="{{product.imgSrc}}" alt="">
  <div>{{product.name}}</div>
  <div>{{product.price}}</div>
  <div>{{product.category}}</div>
  <div>{{product.description | descriptionShortener:descriptionWordCount}}</div>  <!-- mitu sõna -->
+</div>  
  <button routerLink="/admin/edit/{{product.id}}">Muuda toodet </button>
  <button (click)="deleteProduct(product)">Kustuta toode</button>
 </div>

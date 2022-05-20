@@ -1,35 +1,16 @@
 <div> {{kuup2ev | date}} </div>
 
 <ngb-carousel class="carousel-wrapper" *ngIf="images">
- <ng-template ngbSlide>
-   <div class="picsum-img-wrapper">
-     <img [src]="images[0]" alt="Random first slide">
-   </div>
-   <div class="carousel-caption">
-     <h3>Tere</h3>
-     <p>Ma saan siia mida iganes trükkida.</p>
-   </div>
- </ng-template>
- <ng-template ngbSlide>
-   <div class="picsum-img-wrapper">
-     <img [src]="images[1]" alt="Random second slide">
-   </div>
-   <div class="carousel-caption">
-     <h3>Tulemast</h3>
-     <p>Ja ka siia.</p>
-   </div>
- </ng-template>
- <ng-template ngbSlide>
-   <div class="picsum-img-wrapper">
-     <img [src]="images[2]" alt="Random third slide">
-   </div>
-   <div class="carousel-caption">
-     <h3>Minu lehele!</h3>
-     <p>Ja siia.</p>
-   </div>
- </ng-template>
+  <ng-template *ngFor="let image of images" ngbSlide>
+    <div class="picsum-img-wrapper">
+      <img src="{{image.imgName}}" alt="Random first slide">
+    </div>
+    <div class="carousel-caption">
+      <h3>{{image.header}}</h3>
+      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+    </div>
+  </ng-template>
 </ngb-carousel>
-
 
 <!-- <div> {{protsent | percent}} </div>
 <div> {{rahayhik | currency}} </div>
@@ -65,6 +46,13 @@
   <button (click)="addToCart(product)">Lisa {{product.name}} ostukorvi </button>
  </div>
 </div>
+
+<lib-toastify-toast-container 
+[autoClose]="2500"
+[position]="'top-right'"
+[hideProgressBar]="true"
+
+></lib-toastify-toast-container>
 
 
  <!-- 1. *ngFor

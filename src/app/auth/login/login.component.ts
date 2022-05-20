@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'; 
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastService } from 'angular-toastify';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private _toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -32,10 +34,12 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
         this.authService.loggedInChanged.next(true);
         this.router.navigateByUrl("/admin");
+        
       },
      error: errorMessage => {
         this.error = errorMessage;
         this.isLoading = false;
+        this._toastService.error(errorMessage);
       }
      }
     );

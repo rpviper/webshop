@@ -25,7 +25,9 @@
  <label>Hind</label> <br>
  <input ngModel name="price" type="number" required> <br>   
  <label>Pilt</label> <br>
- <input ngModel name="imgSrc" type="text" required> <br>   
+ <!-- <input ngModel name="imgSrc" type="text" required> <br>    -->
+ <input ngModel name="imgSrc" (change)="handleFileInput($event)" type="file">
+ <button type="button" *ngIf="this.selectedFile" (click)="sendPictureToDb()">Saada pilt andmebaasi</button><br>
  <label>Aktiivne</label> <br>
  <input ngModel name="active" type="checkbox"> <br>
  <button [disabled]="addingForm.invalid  || !idUnique">Sisesta </button> <br>  

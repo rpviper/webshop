@@ -43,6 +43,11 @@ deleteProduct(product: Product) {
    element.description.toLocaleLowerCase().indexOf(this.searchedProduct.toLocaleLowerCase()) >= 0 ||    // || => on or funktsioon
    element.id.toString().indexOf(this.searchedProduct.toLocaleLowerCase()) >= 0 )   // kuna see on numbri otsing siis oeab olema toString
     }
+
+  onChangeProductActive(product: Product) {
+    product.isActive = !product.isActive;
+    this.productService.updateProductsInDb(this.products).subscribe();
+   }
     
   }
 

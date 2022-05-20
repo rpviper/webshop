@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Product } from 'src/app/models/product.model';
 import { CategoryService } from 'src/app/services/category.service';
+import { ImageUploadService } from 'src/app/services/image-upload.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -18,10 +19,12 @@ export class AddProductComponent implements OnInit {
   categories: string[] = [];
   products: Product[] = [];
   idUnique = false;
+  selectedFile!: File;
 
   constructor(private http: HttpClient,
     private productService: ProductService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService,
+    private imageUploadService: ImageUploadService) { }
 
   ngOnInit(): void {  // kui lähen lehele pannakse see kõigepealt käima, et oleks juba kategooriad olemas
     this.categoryService.getCategoriesFromDb().subscribe(categoriesFromDb => {   // see nüüd läheb sinna lisa toode dropdown menüüsse
@@ -37,11 +40,14 @@ export class AddProductComponent implements OnInit {
   }); 
   }
 
-addProduct(addingForm: NgForm) {
-  if (addingForm.valid) {
-    this.http.post(this.url, addingForm.value).subscribe();
-    addingForm.reset();
-  }
+addProduct(addingForm: NgForm)  {
+  // this.http.post(this.url, addingForm.value).subscribe();
+  const url = this.imageUploadService.uploadedPictureUrl;
+  const val = addingForm.value;
+  const newProduct = new Product(val.id,val.name, url, val.price, val.category,
+    val.description, val.active);
+  this.productService.addProductToDb(newProduct).subscribe();
+  addingForm.reset();
 }
 
 onCheckIdUniqueness() {
@@ -53,6 +59,14 @@ onCheckIdUniqueness() {
       this.idUnique = true;
       // console.log("Kellelgi teisel ei ole");
     }
+}
+
+handleFileInput(event: any) {
+  this.selectedFile = <File>event.target.files[0];
+}
+
+sendPictureToDb() {
+  this.imageUploadService.uploadPicture(this.selectedFile);
 }
 
 }

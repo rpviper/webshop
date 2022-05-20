@@ -12,6 +12,7 @@ import { AddProductComponent } from './admin/add-product/add-product.component';
 import { EditProductComponent } from './admin/edit-product/edit-product.component';
 import { ViewProductComponent } from './admin/view-product/view-product.component';
 import { NgModule } from '@angular/core';
+
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
@@ -21,6 +22,8 @@ import { CategoryComponent } from './admin/category/category.component';
 import { ShopsSettingsComponent } from './admin/shops-settings/shops-settings.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AngularToastifyModule } from 'angular-toastify';
+import { CarouselSettingsComponent } from './admin/carousel-settings/carousel-settings.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { SignupComponent } from './auth/signup/signup.component';
     CategoryComponent,
     ShopsSettingsComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    CarouselSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +51,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     AppRoutingModule,
     NgbModule,
     BrowserModule,
+    AngularToastifyModule,
     // ngx-translate and the loader module
     HttpClientModule,
     TranslateModule.forRoot({
