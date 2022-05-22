@@ -1,4 +1,3 @@
-import { HttpClient} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Product } from 'src/app/models/product.model';
@@ -13,32 +12,33 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AddProductComponent implements OnInit {
 
-  url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";
-  categoriesUrl = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/categories.json";
+  // url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";
+  // categoriesUrl = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/categories.json";
   productId!: number;
-  categories: string[] = [];
   products: Product[] = [];
   idUnique = false;
+  categories: {categoryName: string}[] = [];
   selectedFile!: File;
-
-  constructor(private http: HttpClient,
+  
+  constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
-    private imageUploadService: ImageUploadService) { }
+    private imageUploadService: ImageUploadService) { }   
 
   ngOnInit(): void {  // kui lähen lehele pannakse see kõigepealt käima, et oleks juba kategooriad olemas
-    this.categoryService.getCategoriesFromDb().subscribe(categoriesFromDb => {   // see nüüd läheb sinna lisa toode dropdown menüüsse
-     this.categoryService.categories = [];
-     for (const key in categoriesFromDb) {
-       this.categories.push(categoriesFromDb[key].category);
-     }
+    this.categoryService.getCategoriesFromDb().subscribe(categoriesFromDb => {     // see nüüd läheb sinna lisa toode dropdown menüüsse
+      const newArray = [];
+      for (const key in categoriesFromDb) {
+        newArray.push(categoriesFromDb[key]);
+      }
+      this.categories = newArray;
     });
+
     this.productService.getProductsFromDb().subscribe(response => { 
-      for (const key in response) {
-        this.products.push(response[key]);
-        }
-  }); 
+      this.products = response;
+    }); 
   }
+
 
 addProduct(addingForm: NgForm)  {
   // this.http.post(this.url, addingForm.value).subscribe();

@@ -18,8 +18,8 @@ export class CategoryComponent implements OnInit {
     this.categoryService.getCategoriesFromDb().subscribe(categoriesFromDb => {
       this.categoryService.categories = [];
       for (const key in categoriesFromDb) {
-        this.categories.push(categoriesFromDb[key].category);
-        this.categoryService.categories.push({id: key, category: categoriesFromDb[key].category});
+        this.categories.push(categoriesFromDb[key].categoryName);
+        this.categoryService.categories.push({id: key, category: categoriesFromDb[key].categoryName});
       }
     })
   }

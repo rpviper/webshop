@@ -32,10 +32,19 @@ export class NavbarComponent implements OnInit {    // this. tuleb nendest viies
     this.authService.loggedInChanged.subscribe(loggedInFromSubject => {
       this.loggedIn = loggedInFromSubject;
     })
+    const language = localStorage.getItem("language");
+  if (language) {
+    this.useLanguage(language);
   }
+  }
+
+  
+
   useLanguage(language: string): void {
     this.translate.use(language);
-}
+    localStorage.setItem("language", language);
+  }
+
 
   onLogout() {
     this.authService.loggedInChanged.next(false);

@@ -1,3 +1,4 @@
+<div *ngIf="cartProducts.length === 0"><h3> Ostukorv on tühi!</h3></div>
 <button *ngIf="cartProducts.length >0" (click)="emptyCart()">Empty cart</button><br><br>
 
 <div class="cart-item" *ngFor="let cartProduct of cartProducts">

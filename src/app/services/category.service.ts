@@ -11,7 +11,7 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
 getCategoriesFromDb() {
-  return this.http.get<{category: string}[]>(this.categoriesUrl)
+  return this.http.get<{categoryName: string}[]>(this.categoriesUrl)
 }
 
 saveCategories() {

@@ -1,3 +1,5 @@
+<div>{{error}} </div>
+
 <ngb-alert type="danger" *ngIf="error">{{ error }}</ngb-alert>
 
 <form (ngSubmit)="onSignUp(form)" #form="ngForm">
@@ -7,8 +9,9 @@
  <input ngModel name="password" type="password" required> <br><br>
  <button [disabled]="form.invalid">Registreeru</button>
 </form>
+
 <lib-toastify-toast-container 
-[autoClose]="2000"
+[autoClose]="2500"
 [position]="'top-right'"
 [hideProgressBar]="true"
 

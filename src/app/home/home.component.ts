@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   // ];
   images: any[] = [];
   products: Product[] = [];
-  url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/products.json";  // this is going to be so you dont have to type it under
+  url = "https://rainowebshop-default-rtdb.europe-west1.firebasedatabase.app/pictures.json";  // this is going to be so you dont have to type it under
   kuup2ev = new Date();
   protsent = 0.5;
   rahayhik = 1000000;
